@@ -27,9 +27,10 @@ func main() {
 		}
 		fmt.Println("Average: ", averageNumber(numbersArr))
 		fmt.Println("Whole Story: ", wholeStory(stringsArr))
-		shortest, longest := storyStats(stringsArr)
+		shortest, longest, average := storyStats(stringsArr)
 		fmt.Println("Shortest: ", shortest)
 		fmt.Println("Longest: ", longest)
+		fmt.Println("Average: ", average)
 	}
 }
 
@@ -85,8 +86,9 @@ func wholeStory(arr []string) string {
 /**
  * Story Status (Shortest, Longest, Average, List equal to the slice element)
  */
-func storyStats(arr []string) (shortest string, longest string) {
+func storyStats(arr []string) (shortest string, longest string, average float64) {
 	temp := len(arr[0])
+	var wordLengths = 0
 	for _, word := range arr {
 		wordLength := len(word)
 
@@ -101,7 +103,11 @@ func storyStats(arr []string) (shortest string, longest string) {
 			longest = word
 		}
 
+		wordLengths += wordLength
 	}
+
+	// Calculate average word length
+	average = (float64(wordLengths)) / (float64(len(arr)))
 
 	return
 }
