@@ -27,8 +27,9 @@ func main() {
 		}
 		fmt.Println("Average: ", averageNumber(numbersArr))
 		fmt.Println("Whole Story: ", wholeStory(stringsArr))
-		shortest := storyStats(stringsArr)
+		shortest, longest := storyStats(stringsArr)
 		fmt.Println("Shortest: ", shortest)
+		fmt.Println("Longest: ", longest)
 	}
 }
 
@@ -84,15 +85,23 @@ func wholeStory(arr []string) string {
 /**
  * Story Status (Shortest, Longest, Average, List equal to the slice element)
  */
-func storyStats(arr []string) (shortest string) {
+func storyStats(arr []string) (shortest string, longest string) {
 	temp := len(arr[0])
 	for _, word := range arr {
 		wordLength := len(word)
+
 		// Shortest
 		if wordLength <= temp {
 			shortest = word
 			temp = wordLength
 		}
+
+		// Longest
+		if wordLength > len(longest) {
+			longest = word
+		}
+
 	}
+
 	return
 }
