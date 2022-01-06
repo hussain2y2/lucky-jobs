@@ -10,6 +10,7 @@ import (
 
 func main() {
 	text := "23-ab-48-caba-56-haha"
+
 	if testValidity(text) {
 		var numbersArr = []int64{}
 		var stringsArr = []string{}
@@ -26,9 +27,14 @@ func main() {
 		}
 		fmt.Println("Average: ", averageNumber(numbersArr))
 		fmt.Println("Whole Story: ", wholeStory(stringsArr))
+		shortest := storyStats(stringsArr)
+		fmt.Println("Shortest: ", shortest)
 	}
 }
 
+/**
+ * Validate the given string format
+ */
 func testValidity(text string) bool {
 	splitted := strings.Split(text, "-")
 	if len(splitted) >= 2 && checkNumber(splitted[0]) && checkString(splitted[1]) {
@@ -38,16 +44,25 @@ func testValidity(text string) bool {
 	return false
 }
 
+/**
+ * Check if the given string is in the number format
+ */
 func checkNumber(str string) bool {
 	numberP := regexp.MustCompile(`^[0-9]+$`)
 	return numberP.MatchString(str)
 }
 
+/**
+ * Check if the given string is in the string format
+ */
 func checkString(str string) bool {
 	stringP := regexp.MustCompile(`^[a-zA-Z]+$`)
 	return stringP.MatchString(str)
 }
 
+/**
+ * Calculate the average of number array
+ */
 func averageNumber(arr []int64) float64 {
 	var sum int64 = 0
 	length := len(arr)
@@ -59,6 +74,25 @@ func averageNumber(arr []int64) float64 {
 	return (float64(sum)) / (float64(length))
 }
 
+/**
+ * Whole story of a string array
+ */
 func wholeStory(arr []string) string {
 	return strings.Join(arr, " ")
+}
+
+/**
+ * Story Status (Shortest, Longest, Average, List equal to the slice element)
+ */
+func storyStats(arr []string) (shortest string) {
+	temp := len(arr[0])
+	for _, word := range arr {
+		wordLength := len(word)
+		// Shortest
+		if wordLength <= temp {
+			shortest = word
+			temp = wordLength
+		}
+	}
+	return
 }
