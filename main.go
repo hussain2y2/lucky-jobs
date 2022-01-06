@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"math"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -36,93 +33,4 @@ func main() {
 		fmt.Println("Average: ", average)
 		fmt.Println("List of elements equal to the average length: ", list)
 	}
-}
-
-/**
- * Validate the given string format
- */
-func testValidity(text string) bool {
-	splitted := strings.Split(text, "-")
-	if len(splitted) >= 2 && checkNumber(splitted[0]) && checkString(splitted[1]) {
-		return true
-	}
-	log.Fatal("The format is not correct!")
-	return false
-}
-
-/**
- * Check if the given string is in the number format
- */
-func checkNumber(str string) bool {
-	numberP := regexp.MustCompile(`^[0-9]+$`)
-	return numberP.MatchString(str)
-}
-
-/**
- * Check if the given string is in the string format
- */
-func checkString(str string) bool {
-	stringP := regexp.MustCompile(`^[a-zA-Z]+$`)
-	return stringP.MatchString(str)
-}
-
-/**
- * Calculate the average of number array
- */
-func averageNumber(arr []int64) float64 {
-	var sum int64 = 0
-	length := len(arr)
-
-	for i := 0; i < length; i++ {
-		sum += arr[i]
-	}
-
-	return (float64(sum)) / (float64(length))
-}
-
-/**
- * Whole story of a string array
- */
-func wholeStory(arr []string) string {
-	return strings.Join(arr, " ")
-}
-
-/**
- * Story Status (Shortest, Longest, Average, List equal to the slice element)
- */
-func storyStats(arr []string) (shortest string, longest string, average float64, list []string) {
-	temp := len(arr[0])
-	var wordLengths = 0
-	for _, word := range arr {
-		wordLength := len(word)
-
-		// Shortest
-		if wordLength <= temp {
-			shortest = word
-			temp = wordLength
-		}
-
-		// Longest
-		if wordLength > len(longest) {
-			longest = word
-		}
-
-		wordLengths += wordLength
-	}
-
-	// Calculate average word length
-	average = (float64(wordLengths)) / (float64(len(arr)))
-
-	// List the same length as with average round up/round down
-	roundUp := math.Ceil(average)
-	roundDown := math.Floor(average)
-
-	for _, word := range arr {
-		wordLength := len(word)
-		if wordLength == int(roundUp) || wordLength == int(roundDown) {
-			list = append(list, word)
-		}
-	}
-
-	return
 }
