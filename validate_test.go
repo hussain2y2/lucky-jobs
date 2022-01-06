@@ -10,6 +10,6 @@ func TestTestValidity(t *testing.T) {
 	desired := true
 
 	if got != desired {
-		t.Error(fmt.Printf("got %v, want %v", got, desired))
+		t.Error(fmt.Printf("got %v, desired %v", got, desired))
 	}
 }
