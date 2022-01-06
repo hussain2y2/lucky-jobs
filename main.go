@@ -24,8 +24,8 @@ func main() {
 				stringsArr = append(stringsArr, item)
 			}
 		}
-
-		fmt.Println(numbersArr, stringsArr)
+		fmt.Println("Average: ", averageNumber(numbersArr))
+		fmt.Println("Whole Story: ", wholeStory(stringsArr))
 	}
 }
 
@@ -48,10 +48,17 @@ func checkString(str string) bool {
 	return stringP.MatchString(str)
 }
 
-func averageNumber() {
+func averageNumber(arr []int64) float64 {
+	var sum int64 = 0
+	length := len(arr)
 
+	for i := 0; i < length; i++ {
+		sum += arr[i]
+	}
+
+	return (float64(sum)) / (float64(length))
 }
 
-func wholeStory() {
-
+func wholeStory(arr []string) string {
+	return strings.Join(arr, " ")
 }
