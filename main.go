@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -27,10 +28,13 @@ func main() {
 		}
 		fmt.Println("Average: ", averageNumber(numbersArr))
 		fmt.Println("Whole Story: ", wholeStory(stringsArr))
-		shortest, longest, average := storyStats(stringsArr)
+
+		shortest, longest, average, list := storyStats(stringsArr)
+
 		fmt.Println("Shortest: ", shortest)
 		fmt.Println("Longest: ", longest)
 		fmt.Println("Average: ", average)
+		fmt.Println("List of elements equal to the average length: ", list)
 	}
 }
 
@@ -86,7 +90,7 @@ func wholeStory(arr []string) string {
 /**
  * Story Status (Shortest, Longest, Average, List equal to the slice element)
  */
-func storyStats(arr []string) (shortest string, longest string, average float64) {
+func storyStats(arr []string) (shortest string, longest string, average float64, list []string) {
 	temp := len(arr[0])
 	var wordLengths = 0
 	for _, word := range arr {
@@ -108,6 +112,17 @@ func storyStats(arr []string) (shortest string, longest string, average float64)
 
 	// Calculate average word length
 	average = (float64(wordLengths)) / (float64(len(arr)))
+
+	// List the same length as with average round up/round down
+	roundUp := math.Ceil(average)
+	roundDown := math.Floor(average)
+
+	for _, word := range arr {
+		wordLength := len(word)
+		if wordLength == int(roundUp) || wordLength == int(roundDown) {
+			list = append(list, word)
+		}
+	}
 
 	return
 }
